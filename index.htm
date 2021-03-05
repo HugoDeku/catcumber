@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catcumber</title>
+    <script type="text/javascript" src="gl-matrix.js"></script>
+    <script type="text/javascript" src="game-utils.js"></script>
+
+    <script type="text/javascript">
+
+        var currentlyPressedKeys = {};
+
+        function handleKeyDown(event) {
+            currentlyPressedKeys[event.keyCode] = true;
+        }
+
+
+        function handleKeyUp(event) {
+            currentlyPressedKeys[event.keyCode] = false;
+        }
+
+        function drawScene(){
+            
+        }
+
+        function handleKeys(){
+
+        }
+
+        function tick() {
+                requestAnimFrame(tick);
+                handleKeys();
+                drawScene();
+            }
+
+        function webGLStart(){
+            var canvas = document.getElementById("catcumber");
+            initGL(canvas);
+
+            // la couleur de fond sera grise foncée
+            gl.clearColor(0.3, 0.3, 0.3, 1.0);
+
+            // active le test de profondeur 
+            gl.enable(gl.DEPTH_TEST);
+
+            // fonction de mélange utilisée pour la transparence
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);      
+
+            document.onkeydown = handleKeyDown;
+            document.onkeyup = handleKeyUp;
+
+            tick();
+        }
+    </script>
+</head>
+<body onload="webGLStart();">
+    <canvas id="catcumber" style="border: none;" width="1020" height="800"></canvas>
+</body>
+</html>
